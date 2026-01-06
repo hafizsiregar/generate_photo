@@ -116,19 +116,29 @@ firebase init
 firebase use <your-project-id>
 ```
 
-### 4. Configure Gemini API Key
+### 4. Configure Firebase Options
+```bash
+# Generate Firebase configuration
+flutter packages pub run build_runner build
+
+# OR manually copy from template
+cp lib/firebase_options.dart.template lib/firebase_options.dart
+# Then edit lib/firebase_options.dart with your actual Firebase config values
+```
+
+### 5. Configure Gemini API Key
 ```bash
 # Set the API key as Firebase secret
 firebase functions:secrets:set GEMINI_API_KEY
 # Enter your Gemini API key when prompted
 ```
 
-### 5. Deploy Cloud Functions
+### 6. Deploy Cloud Functions
 ```bash
 firebase deploy --only functions
 ```
 
-### 6. Run the App
+### 7. Run the App
 ```bash
 flutter run
 ```

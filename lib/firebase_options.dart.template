@@ -50,19 +50,19 @@ class DefaultFirebaseOptions {
   }
 
   static const FirebaseOptions android = FirebaseOptions(
-    apiKey: 'AIzaSyAnN-5j2NEuYyKKO8OB1H-xbfdPNtxaOB0',
-    appId: '1:58171421682:android:b9191922140efa9efd716b',
-    messagingSenderId: '58171421682',
-    projectId: 'generate-photo',
-    storageBucket: 'generate-photo.firebasestorage.app',
+    apiKey: 'YOUR_ANDROID_API_KEY_HERE',
+    appId: 'YOUR_ANDROID_APP_ID_HERE',
+    messagingSenderId: 'YOUR_MESSAGING_SENDER_ID_HERE',
+    projectId: 'YOUR_PROJECT_ID_HERE',
+    storageBucket: 'YOUR_STORAGE_BUCKET_HERE',
   );
 
   static const FirebaseOptions ios = FirebaseOptions(
-    apiKey: 'AIzaSyB3fIW8CgMPSlh6025fy4-JsibSgm2d8i0',
-    appId: '1:58171421682:ios:8271edeef74f0217fd716b',
-    messagingSenderId: '58171421682',
-    projectId: 'generate-photo',
-    storageBucket: 'generate-photo.firebasestorage.app',
+    apiKey: 'YOUR_IOS_API_KEY_HERE',
+    appId: 'YOUR_IOS_APP_ID_HERE',
+    messagingSenderId: 'YOUR_MESSAGING_SENDER_ID_HERE',
+    projectId: 'YOUR_PROJECT_ID_HERE',
+    storageBucket: 'YOUR_STORAGE_BUCKET_HERE',
     iosBundleId: 'com.example.generatePhoto',
   );
 }
