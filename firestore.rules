@@ -1,0 +1,24 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    // Remixes collection - users can only access their own remixes
+    match /remixes/{remixId} {
+      // Allow create if authenticated and userId matches
+      // Use request.resource.data because resource doesn't exist yet on create
+      allow create: if request.auth != null
+          && request.resource.data.userId == request.auth.uid;
+      
+      // Allow read, update, delete if authenticated and userId matches
+      // Use resource.data because resource exists for these operations
+      allow read, update, delete: if request.auth != null
+          && resource.data.userId == request.auth.uid;
+    }
+    
+    // Deny all other access
+    match /{document=**} {
+      allow read, write: if false;
+    }
+  }
+}
+
+

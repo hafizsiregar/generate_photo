@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "58171421682",
+    "project_id": "generate-photo",
+    "storage_bucket": "generate-photo.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:58171421682:android:b9191922140efa9efd716b",
+        "android_client_info": {
+          "package_name": "com.example.generate_photo"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAnN-5j2NEuYyKKO8OB1H-xbfdPNtxaOB0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
