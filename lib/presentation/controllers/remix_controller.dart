@@ -295,13 +295,15 @@ class RemixController extends ChangeNotifier {
       _errorMessage = null;
       notifyListeners();
 
+      // Simple call without complex auth handling
       await _firebaseService.generateImages(_currentRemix!.id);
-    } on FirebaseFunctionsException catch (e) {
-      _isGenerating = false;
-      _setError(_getGenerationErrorMessage(e));
     } catch (e) {
       _isGenerating = false;
-      _setError('Unexpected error occurred. Please try again.');
+      if (e is FirebaseFunctionsException) {
+        _setError(_getGenerationErrorMessage(e));
+      } else {
+        _setError('Generation failed. Please try again.');
+      }
     }
   }
 
@@ -318,6 +320,8 @@ class RemixController extends ChangeNotifier {
 
   String _getGenerationErrorMessage(FirebaseFunctionsException e) {
     switch (e.code) {
+      case 'unauthenticated':
+        return 'Authentication failed. Please restart the app and try again.';
       case 'failed-precondition':
         if (e.message?.contains('API_KEY') == true) {
           return 'Service configuration error. Please contact support.';

@@ -20,14 +20,33 @@ class FirebaseService {
 
   // Authentication
   Future<User> ensureUserSignedIn() async {
-    var user = _auth.currentUser;
-    if (user == null) {
-      final cred = await _auth.signInAnonymously();
-      user = cred.user!;
-      await Future.delayed(const Duration(milliseconds: 500));
+    try {
+      var user = _auth.currentUser;
+      debugPrint('Current user: ${user?.uid}');
+
+      if (user == null) {
+        debugPrint('No current user, signing in anonymously...');
+        final cred = await _auth.signInAnonymously();
+        user = cred.user!;
+        debugPrint('Anonymous sign in successful: ${user.uid}');
+        await Future.delayed(const Duration(milliseconds: 500));
+      }
+
+      // Force refresh token to ensure it's valid
+      debugPrint('Getting fresh ID token...');
+      final token = await user.getIdToken(true);
+      debugPrint('Token obtained, length: ${token?.length ?? 0}');
+
+      // Double check user is still valid
+      await user.reload();
+      user = _auth.currentUser!;
+      debugPrint('User reloaded successfully: ${user.uid}');
+
+      return user;
+    } catch (e) {
+      debugPrint('Authentication error: $e');
+      rethrow;
     }
-    await user.getIdToken(true);
-    return user;
   }
 
   // Storage
@@ -103,8 +122,19 @@ class FirebaseService {
 
   // Cloud Functions
   Future<Map<String, dynamic>> generateImages(String remixId) async {
-    final callable = _functions.httpsCallable('generateImages');
-    final result = await callable.call({'remixId': remixId});
-    return Map<String, dynamic>.from(result.data);
+    try {
+      debugPrint('Calling generateImages function with remixId: $remixId');
+
+      final callable = _functions.httpsCallable('generateImages');
+      debugPrint('Callable created successfully');
+
+      final result = await callable.call({'remixId': remixId});
+      debugPrint('Function call successful: ${result.data}');
+
+      return Map<String, dynamic>.from(result.data);
+    } catch (e) {
+      debugPrint('Function call error: $e');
+      rethrow;
+    }
   }
 }
